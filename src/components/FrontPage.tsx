@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
+import useJokes from '../hooks/useJokes';
+
 
 interface Joke {
     id: number;
@@ -7,9 +9,11 @@ interface Joke {
     punchline: string;
 }
 
+
 const FrontPage: React.FC = () => {
     const [joke, setJoke] = useState<Joke | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const { saveJoke } = useJokes();
 
     const fetchJoke = async () => {
         setLoading(true);
@@ -49,6 +53,11 @@ const FrontPage: React.FC = () => {
         <Button variant="contained" color="primary" onClick={fetchJoke}>
             Fetch A Joke
         </Button>
+        {joke && (
+            <Button variant="contained" color="secondary" onClick={() => saveJoke(joke)}>
+                Save Joke
+            </Button>
+        )}
         {loading ? (
             <Typography variant="h6">Loading a joke...</Typography>
         ) : (
