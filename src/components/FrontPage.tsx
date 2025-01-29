@@ -6,11 +6,14 @@ interface Joke {
     setup: string;
     punchline: string;
 }
+interface FrontPageProps {
+    saveJoke?: (joke: Joke) => void;
+}
 
 
-const FrontPage: React.FC = () => {
-    const useFetch = (url: string) => {
-        const [data, setData] = useState<any>(null);
+const FrontPage: React.FC<FrontPageProps> = () => {
+    const useFetch = (url: string, saveJoke?: (joke: Joke) => void) => {
+        const [data, setData] = useState<Joke | null>(null);
         const [loading, setLoading] = useState<boolean>(false);
         const [error, setError] = useState<string>("");
         const abortCtrl = React.useRef(new AbortController());
@@ -28,7 +31,9 @@ const FrontPage: React.FC = () => {
                 const result: Joke = await response.json();
                 setData(result);
                 setLoading(false);
-               
+                if (saveJoke) {
+                    saveJoke(result);
+                }
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     if (error.name === "AbortError") {
@@ -41,7 +46,7 @@ const FrontPage: React.FC = () => {
                     console.error("unknown error: ", error);
                 }
             }
-        }, [url]);
+        }, [url, saveJoke]);
 
         useEffect(() => {
             return () => abortCtrl.current.abort();
