@@ -61,14 +61,10 @@ const FrontPage: React.FC = () => {
             {error && <p>Error: {error}</p>}
             {data && (
                 <Card key={data.id} style={{ marginTop: '20px' }}>
-                    <CardContent>
-                        <Typography variant="h5" component="div">
-                            {data.setup}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {data.punchline}
-                        </Typography>
-                    </CardContent>
+                    {data.setup}
+                    {data.punchline}
+            
+                    
                 </Card>
             )}
         </>
