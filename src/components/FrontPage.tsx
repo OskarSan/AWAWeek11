@@ -9,11 +9,14 @@ interface Joke {
     punchline: string;
 }
 
+interface FrontPageProps {
+    useCustomHook?: boolean;
+}
 
-const FrontPage: React.FC = () => {
+const FrontPage: React.FC<FrontPageProps> = ({ useCustomHook = false }) => {
     const [joke, setJoke] = useState<Joke | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const { saveJoke } = useJokes();
+    const { saveJoke } = useCustomHook ? useJokes() : { saveJoke: (joke: Joke) => {} };
 
     const fetchJoke = async () => {
         setLoading(true);
@@ -53,7 +56,7 @@ const FrontPage: React.FC = () => {
         <Button variant="contained" color="primary" onClick={fetchJoke}>
             Fetch A Joke
         </Button>
-        {joke && (
+        {joke && saveJoke && (
             <Button variant="contained" color="secondary" onClick={() => saveJoke(joke)}>
                 Save Joke
             </Button>
