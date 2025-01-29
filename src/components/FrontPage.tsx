@@ -28,6 +28,7 @@ const FrontPage: React.FC = () => {
                 const result: Joke = await response.json();
                 setData(result);
                 setLoading(false);
+               
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     if (error.name === "AbortError") {
