@@ -8,7 +8,7 @@ interface IJoke {
 }
 
 
-const useJokes = () => {
+export function useJokes() {
     const [savedJokes, setSavedJokes] = useState<IJoke[]>([]);
   
     const saveJoke = (joke: IJoke) => {
@@ -18,4 +18,4 @@ const useJokes = () => {
     return { savedJokes, saveJoke };
   };
   
-  export default useJokes;
+  

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
-import useJokes from '../hooks/useJokes';
+import {useJokes} from '../hooks/useJokes';
 
 interface Joke {
     id: number;
@@ -8,15 +8,11 @@ interface Joke {
     punchline: string;
 }
 
-interface FrontPageProps {
-    saveJoke?: (joke: Joke) => void;
-}
 
-
-const FrontPage: React.FC<FrontPageProps> = ({ saveJoke }) => {
+const FrontPage: React.FC = () => {
     const [joke, setJoke] = useState<Joke | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const { saveJoke: customSaveJoke } = useJokes();
+    const { saveJoke } = useJokes();
 
     const fetchJoke = async () => {
         setLoading(true);
@@ -50,15 +46,7 @@ const FrontPage: React.FC<FrontPageProps> = ({ saveJoke }) => {
         };
     }, []);
 
-    const handleSaveJoke = () => {
-        if (joke) {
-            if (saveJoke) {
-                saveJoke(joke);
-            } else {
-                customSaveJoke(joke);
-            }
-        }
-    };
+
 
 
     return (
@@ -67,7 +55,7 @@ const FrontPage: React.FC<FrontPageProps> = ({ saveJoke }) => {
             Get Joke
         </Button>
         {joke && (
-            <Button variant="contained" color="secondary" onClick={handleSaveJoke}>
+            <Button variant="contained" color="secondary" onClick={() => saveJoke(joke)}>
                 Save Joke
             </Button>
         )}
