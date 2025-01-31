@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
-import {useJokes} from '../hooks/useJokes';
 
 interface Joke {
     id: number;
@@ -8,11 +7,14 @@ interface Joke {
     punchline: string;
 }
 
+interface FrontPageProps {
+    saveJoke: (joke: Joke) => void;
+}
 
-const FrontPage: React.FC = () => {
+const FrontPage: React.FC<FrontPageProps> = ({ saveJoke }) => {
     const [joke, setJoke] = useState<Joke | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const { saveJoke } = useJokes();
+
 
     const fetchJoke = async () => {
         setLoading(true);
