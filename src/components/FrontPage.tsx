@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
-
+import { useJokes } from '../hooks/useJokes';
 interface Joke {
     id: number;
     setup: string;

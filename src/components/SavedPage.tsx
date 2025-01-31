@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography } from '@mui/material';
+import { useJokes } from '../hooks/useJokes';
 
 interface Joke {
     id: number;
