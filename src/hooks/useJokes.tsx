@@ -14,7 +14,7 @@ const useJokes = () => {
     const saveJoke = (joke: IJoke) => {
       setSavedJokes((prevJokes) => [...prevJokes, joke]);
     };
-  
+    console.log(savedJokes)
     return { savedJokes, saveJoke };
   };
   

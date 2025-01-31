@@ -64,7 +64,7 @@ const FrontPage: React.FC<FrontPageProps> = ({ saveJoke }) => {
     return (
         <div>
         <Button variant="contained" color="primary" onClick={fetchJoke}>
-            Fetch A Joke
+            Get Joke.
         </Button>
         {joke && (
             <Button variant="contained" color="secondary" onClick={handleSaveJoke}>
